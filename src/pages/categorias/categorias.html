@@ -1,0 +1,30 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Categorias</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="corpo-page">
+  
+  <ion-fab top right edge>
+    <button navPush="CartPage" ion-fab mini><ion-icon name="cart"></ion-icon></button>
+  </ion-fab>
+
+  <ion-list>
+    <button ion-item class="item-categoria" *ngFor="let categoria of categorias" (click)="showItems(categoria.id)">
+      <ion-thumbnail item-start>
+        <img [src]="categoria.imageUrl">
+      </ion-thumbnail>
+      <h2>{{ categoria.name }}</h2>
+    </button>
+  </ion-list>
+
+
+</ion-content>

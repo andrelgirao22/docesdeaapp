@@ -1,0 +1,27 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Fechamento de pedido</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-list-header>
+      Selecione um endereço
+    </ion-list-header>
+    <button ion-item *ngFor="let a of address" (click)="nextPage(a)">
+      <h2>{{ a.addressName }}, {{ a.addressNumber }}</h2>
+      <p>{{ a.complement}} {{ a.neighborhood }} {{ a.postalCode }} </p>
+      <p>{{ a.city.name }} {{ a.state.uf }}</p>
+    </button>
+  </ion-list>
+
+</ion-content>
