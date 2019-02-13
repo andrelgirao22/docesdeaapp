@@ -1,0 +1,75 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Confirmação do pedido</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card>
+    <ion-card-header>
+      Itens do pedido
+    </ion-card-header>
+
+    <ion-list>
+      <ion-item *ngFor="let item of cartItens">
+        <ion-thumbnail item-start>
+          <img [src]="item.item.imageUrl || 'assets/imgs/prod.jpg'">
+        </ion-thumbnail>
+        <h2>{{ item.item.name }}</h2>
+        <p>{{ item.item.price | currency }}</p>
+        <p>{{ item.quantity }}</p>
+        <p item-end>{{ item.item.price * item.quantity | currency }}</p>
+      </ion-item>
+
+      <ion-item>
+        <h2>Total</h2>
+        <h2 item-end>{{ total() | currency }}</h2>
+      </ion-item>
+
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Cliente
+    </ion-card-header>
+    <ion-item>
+      <h2>{{ account?.name }}</h2>
+      <p>{{ account?.email }}</p>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Endereço de entrega
+    </ion-card-header>
+    <ion-item>
+      <h2>{{ a.addressName }}, {{ a.addressNumber }}</h2>
+      <p>{{ a.complement}} {{ a.neighborhood }} {{ a.postalCode }} </p>
+      <p>{{ a.city.name }} {{ a.state.uf }}</p>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Pagamento
+    </ion-card-header>
+
+    <ion-item *ngIf="order.payments['paymentType'] == 'CARTAO'">
+      <h3>Pagamento com cartão</h3>
+      <p>Parcelas: {{ order.payments[0].quota}}</p>
+    </ion-item>
+
+    <ion-item *ngIf="order.payments['paymentType'] == 'DINHEIRO'">
+        <h3>Pagamento com boleto</h3>
+      </ion-item>
+  </ion-card>
+
+</ion-content>

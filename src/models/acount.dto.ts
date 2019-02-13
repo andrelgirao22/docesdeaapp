@@ -2,6 +2,7 @@ import { StateDTO } from './state.dto';
 import { CityDTO } from './city.dto';
 interface AccountDTO {
 
+	id: string
     name: string,
 	email: string,
 	imageUrl?: string
@@ -10,6 +11,8 @@ interface AccountDTO {
 }
 
 interface AddressDTO {
+
+	id: string
     addressName: string
 	addressNumber: string
 	neighborhood: string

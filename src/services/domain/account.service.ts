@@ -11,7 +11,11 @@ export class AccountService  {
     constructor(public http: HttpClient, public storage: LocalStorageService) {}
 
     findlByEmail(email: string): Observable<AccountDTO> {
-        return this.http.get<AccountDTO>(`${API_CONFIG.baseUrl}/account/${email}`)
+        return this.http.get<AccountDTO>(`${API_CONFIG.baseUrl}/account/email/${email}`)
+    }
+
+    findById(id: string) {
+        return this.http.get<AccountDTO>(`${API_CONFIG.baseUrl}/account/${id}`)
     }
 
     insert(obj: AccountDTO) {

@@ -42,7 +42,8 @@ export class PaymentPage {
       paymentType: this.formGroup.get('paymentType').value,
       quota: this.formGroup.get('quota').value
     }
-    console.log(this.order)
+    this.navCtrl.push('OrderConfirmationPage')
+    
   }
 
 }
