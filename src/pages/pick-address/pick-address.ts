@@ -42,7 +42,7 @@ export class PickAddressPage {
         this.order = {
           id: null,
           account: account,
-          payments: null,
+          payments: [],
           orderItens: this.cartService.getCart().itens,
         }
   }
@@ -50,8 +50,7 @@ export class PickAddressPage {
   nextPage(address: AddressDTO) {
     this.order.account.addresses = []
     this.order.account.addresses.push(address)
-    console.log('order',this.order)
-    //this.navCtrl.push('')
+    this.navCtrl.push('PaymentPage', {order: this.order})
   }
 
 }

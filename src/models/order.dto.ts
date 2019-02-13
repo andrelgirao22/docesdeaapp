@@ -6,7 +6,7 @@ interface OrderDTO {
 
     id: string
 	orderItens: CartItem[]
-	payments: PaymentDTO
+	payments: PaymentDTO[]
 
 	account: AccountDTO
 
@@ -16,8 +16,8 @@ interface PaymentDTO {
 
 	id: string
 	paymentType: string
-	authorizationCode: string
-	value: number
+	authorizationCode?: string
+	quota: number
 }
 
 export {OrderDTO, PaymentDTO}
