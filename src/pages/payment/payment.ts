@@ -37,12 +37,14 @@ export class PaymentPage {
   }
 
   nextPage() {
-    this.order.payments[0] = {
+
+    this.order.payments = [{
       id: null,
       paymentType: this.formGroup.get('paymentType').value,
-      quota: this.formGroup.get('quota').value
-    }
-    this.navCtrl.push('OrderConfirmationPage')
+      quota: this.formGroup.get('quota').value,
+      value: this.order.orderValue
+    }]
+    this.navCtrl.setRoot('OrderConfirmationPage', {order :this.order})
     
   }
 

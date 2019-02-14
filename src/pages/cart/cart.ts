@@ -1,4 +1,3 @@
-import { LocalStorageService } from './../../services/local-storage.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CartItem } from '../../models/cart.item';

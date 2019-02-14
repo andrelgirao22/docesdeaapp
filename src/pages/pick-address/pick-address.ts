@@ -44,6 +44,7 @@ export class PickAddressPage {
           account: account,
           payments: [],
           orderItens: this.cartService.getCart().itens,
+          orderValue: this.cartService.total()
         }
   }
 

@@ -9,6 +9,7 @@ interface OrderDTO {
 	payments: PaymentDTO[]
 
 	account: AccountDTO
+	orderValue: number
 
 }
 
@@ -18,6 +19,7 @@ interface PaymentDTO {
 	paymentType: string
 	authorizationCode?: string
 	quota: number
+	value: number
 }
 
 export {OrderDTO, PaymentDTO}
