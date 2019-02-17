@@ -11,6 +11,7 @@ import { ItemService } from '../../services/domain/item.service';
 export class ItemPage {
 
   items: ItemDTO[] = []
+  page: number = 0
 
   constructor(
     public navCtrl: NavController, 
@@ -26,8 +27,8 @@ export class ItemPage {
   loadData() {
     let categoria_id = this.navParams.get('categoria_id')
     let loader=  this.presentLoading()
-    this.itemService.findByCategoria(categoria_id).subscribe(res => {
-      this.items = res.content
+    this.itemService.findByCategoria(categoria_id, this.page, 10).subscribe(res => {
+      this.items = this.items.concat(res.content)
       loader.dismiss()
     }, error =>{
       loader.dismiss()
@@ -39,6 +40,8 @@ export class ItemPage {
   }
 
   doRefresh(event) {
+    this.page = 0
+    this.items = []
     this.loadData() 
     setTimeout(() => {
       event.complete();
@@ -57,4 +60,15 @@ export class ItemPage {
     return loader
   }
 
+
+  doInfinite(event) {
+    this.page++
+    this.loadData()
+    setTimeout(() => {
+
+      event.complete();
+    }, 1000);
+  }
 }
+
+

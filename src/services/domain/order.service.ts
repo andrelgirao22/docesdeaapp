@@ -19,7 +19,7 @@ export class OrderService {
         )
     }
 
-    findOrdersByAccount(email: string): any {
-        return this.http.get(`${API_CONFIG.baseUrl}/order/account/${email}`)
+    findOrdersByAccount(email: string, page:number = 0, linesPerPage: number = 0): any {
+        return this.http.get(`${API_CONFIG.baseUrl}/order/account/${email}?page=${page}&linesPerPage=${linesPerPage}`)
     }
 }

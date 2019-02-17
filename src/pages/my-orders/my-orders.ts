@@ -14,6 +14,7 @@ import { OrderService } from '../../services/domain/order.service';
 export class MyOrdersPage {
 
   orders: OrderDTO[] = []
+  page: number = 0
 
   constructor(
     public navCtrl: NavController, 
@@ -31,9 +32,9 @@ export class MyOrdersPage {
   loadData() {
     let account_email = this.storage.getLocalUser().email
     let loader = this.presentLoading()
-    this.orderService.findOrdersByAccount(account_email).subscribe(res => {
+    this.orderService.findOrdersByAccount(account_email, this.page, 10).subscribe(res => {
       console.log(res)
-      this.orders = res.content
+      this.orders = this.orders.concat(res.content)
       loader.dismiss()
     }, error => { 
       this.goToHome()
@@ -43,6 +44,8 @@ export class MyOrdersPage {
 
   
   doRefresh(event) {
+    this.page = 0
+    this.orders = []
     this.loadData() 
     setTimeout(() => {
       event.complete();
@@ -54,14 +57,21 @@ export class MyOrdersPage {
   }
 
   presentLoading() {
-    
     let loader = this.loadingController.create({
       content: 'Aguarde...',
     });
     
     loader.present()
-
     return loader
+  }
+
+  doInfinite(event) {
+    this.page++
+    this.loadData()
+    setTimeout(() => {
+
+      event.complete();
+    }, 1000);
   }
 
 }

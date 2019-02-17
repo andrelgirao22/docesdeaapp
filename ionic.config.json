@@ -1,5 +1,7 @@
 {
   "name": "DocesDaDea",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
