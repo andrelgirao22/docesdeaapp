@@ -1,0 +1,36 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Meus pedidos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Atualizando...">
+      </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list>
+        <button ion-item *ngFor="let order of orders">
+          <ion-thumbnail item-start>
+            <img [src]="'assets/imgs/logo.jpg'">
+          </ion-thumbnail>
+          <h2>Pedido: {{ order?.id }}</h2>
+          <p>Valor {{ order?.orderValue | currency }}</p>
+          <p>Situação {{ order?.status}}</p>
+        </button>
+      </ion-list>
+
+</ion-content>

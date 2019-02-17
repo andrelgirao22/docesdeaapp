@@ -26,6 +26,7 @@ export class MyApp {
       { title: 'Profile', component: 'ProfilePage' },
       { title: 'Categorias', component: 'CategoriasPage' },
       { title: 'Carrinho', component: 'CartPage'},
+      { title: 'Meus pedidos', component: 'MyOrdersPage'},
       { title: 'Sair', component: '' },
     ];
 

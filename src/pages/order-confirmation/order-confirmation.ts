@@ -19,6 +19,7 @@ export class OrderConfirmationPage {
   cartItens: CartItem[]
   account: AccountDTO
   address: AddressDTO
+  orderId: string
 
   constructor(
     public navCtrl: NavController, 
@@ -58,13 +59,22 @@ export class OrderConfirmationPage {
   checkout() {
     console.log(this.order)
     this.orderService.insert(this.order).subscribe( res => {
-      console.log(res.headers.get('location'))
+      this.orderId = this.extractId(res.headers.get('location'))
       this.cartService.createOrClearCart()
     }, error => {
       if(error.status == 403) {
         this.navCtrl.setRoot('HomePage')
       }
     })
+  }
+
+  private extractId(location: string) {
+    let position = location.lastIndexOf('/')
+    return location.substring(position + 1, location.length)
+  }
+
+  goToOrders() {
+    this.navCtrl.setRoot('MyOrdersPage')
   }
 
 }

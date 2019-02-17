@@ -18,4 +18,8 @@ export class OrderService {
             }
         )
     }
+
+    findOrdersByAccount(email: string): any {
+        return this.http.get(`${API_CONFIG.baseUrl}/order/account/${email}`)
+    }
 }
