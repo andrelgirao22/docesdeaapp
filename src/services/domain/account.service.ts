@@ -1,14 +1,18 @@
 import { LocalStorageService } from './../local-storage.service';
 import { API_CONFIG } from './../../config/api.config';
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { AccountDTO } from "../../models/acount.dto";
+import { ImageUtilService } from '../image-util.service';
 
 @Injectable()
 export class AccountService  {
 
-    constructor(public http: HttpClient, public storage: LocalStorageService) {}
+    constructor(
+        public http: HttpClient, 
+        public storage: LocalStorageService,
+        public imageService: ImageUtilService) {}
 
     findlByEmail(email: string): Observable<AccountDTO> {
         return this.http.get<AccountDTO>(`${API_CONFIG.baseUrl}/account/email/${email}`)
@@ -25,6 +29,23 @@ export class AccountService  {
                 responseType: 'text'
             }
         )
+    }
+
+    uploadPicture(picture, id: string) {
+        let pictureBlob = this.imageService.dataUriToBlob(picture)
+        let formData: FormData = new FormData()
+        formData.append('file', pictureBlob, 'file.png')
+
+        return this.http.post(`${API_CONFIG.baseUrl}/account/picture/${id}`, 
+            formData, {
+                observe: 'response',
+                responseType: 'text'
+            }
+        )
+    }
+
+    getImageFromBucket(id: string) {
+        return this.http.get(`${API_CONFIG.baseUrlAmazon}/acc${id}.jpg`, {responseType: 'blob'})
     }
 
 }
