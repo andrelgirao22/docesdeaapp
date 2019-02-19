@@ -5,7 +5,7 @@
     <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>profile</ion-title>
+    <ion-title>perfil</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -28,6 +28,7 @@
     </ion-item>
     <ion-item>
       <button ion-button block (click)="getCameraPicture()" [disabled]="cameraOn">Camera</button>
+      <button ion-button block (click)="getGalleryPicture()" [disabled]="cameraOn">Galeria</button>
       <button ion-button block outline *ngIf="picture" (click)="sendPicture()">Enviar imagem</button>
       <button ion-button block outline *ngIf="picture" (click)="cancelPicture()">Cancelar</button>
     </ion-item>
