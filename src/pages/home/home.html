@@ -1,7 +1,7 @@
 
 <ion-content padding class="corpo-page">
 
-    <img src="assets/imgs/logo.jpg" alt="Doces da Dea">
+    <img src="assets/imgs/logo.jpg">
 
     <form>
       <ion-item class="form-item">
@@ -12,8 +12,8 @@
         <ion-label stacked color="darkprimary"> Senha</ion-label>
         <ion-input [(ngModel)]="credenciais.password" name="password" type="password" color="darkprimary"></ion-input>
       </ion-item>
-      <button ion-button block color="darkprimary" (click)="login()">Entrar</button>
-      <button ion-button block outline color="darkprimary" (click)="signup()">Registrar</button>
+      <button ion-button block color="primary" (click)="login()">Entrar</button>
+      <button ion-button block outline (click)="signup()">Registrar</button>
     </form>
     
 </ion-content>
