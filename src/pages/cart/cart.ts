@@ -1,5 +1,6 @@
+import { AuthService } from './../../services/auth.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { CartItem } from '../../models/cart.item';
 import { CartService } from '../../services/domain/cart.service';
 import { ItemDTO } from '../../models/item.dto';
@@ -17,12 +18,38 @@ export class CartPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public cartService: CartService) {
+    public cartService: CartService,
+    public authService: AuthService,
+    public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
     let cart = this.cartService.getCart()
     this.itens = cart.itens
+  }
+
+  ionViewCanEnter() {
+
+    let canEnter: boolean = this.authService.isLoggedIn()
+
+    if(!canEnter) {
+      let alert = this.alertCtrl.create({
+        title: 'Autenticação é necessário',
+        message: 'Faça o login antes de pedir',
+        enableBackdropDismiss: false,
+        buttons: [
+            {text: 'Ok', handler: value => this.goToAuth() },
+            {text: 'Cancelar'}
+        ]
+    })
+    alert.present()
+    }
+
+    return canEnter
+  }
+
+  goToAuth() {
+    this.navCtrl.push('HomePage')
   }
 
   removeItem(item: ItemDTO) {

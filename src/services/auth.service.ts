@@ -44,7 +44,11 @@ export class AuthService {
         }
 
         return false
-    } 
+    }
+    
+    isLoggedIn() {
+        return this.storageService.getLocalUser() !== null
+    }
 
     logout() {
         this.storageService.setLocalUser(null)

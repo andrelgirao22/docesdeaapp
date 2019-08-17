@@ -36,6 +36,7 @@ export class PickAddressPage {
   }
 
   populeOrder(res: AccountDTO) {
+    debugger
     let account  = res
         this.address = account.addresses
         

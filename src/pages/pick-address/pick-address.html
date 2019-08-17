@@ -1,7 +1,7 @@
 
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -11,7 +11,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="corpo-page">
 
   <ion-list>
     <ion-list-header>
@@ -20,7 +20,7 @@
     <button ion-item *ngFor="let a of address" (click)="nextPage(a)">
       <h2>{{ a.addressName }}, {{ a.addressNumber }}</h2>
       <p>{{ a.complement}} {{ a.neighborhood }} {{ a.postalCode }} </p>
-      <p>{{ a.city.name }} {{ a.state.uf }}</p>
+      <p>{{ a.city?.name }} {{ a.state?.uf }}</p>
     </button>
   </ion-list>
 
