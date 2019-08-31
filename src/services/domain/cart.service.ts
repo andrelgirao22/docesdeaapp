@@ -25,7 +25,7 @@ export class CartService {
 
     addItem(item:ItemDTO): Cart {
         let cart = this.getCart()
-        let position = cart.itens.findIndex(i => i.item.id == item.id)
+        let position = cart.itens.findIndex(i => i.item && i.item.id == item.id)
         if(position == -1) {
             cart.itens.push({item: item, quantity: 1})
         } 

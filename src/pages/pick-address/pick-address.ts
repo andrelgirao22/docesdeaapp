@@ -14,6 +14,7 @@ import { OrderDTO } from '../../models/order.dto';
 })
 export class PickAddressPage {
 
+  addres: AddressDTO
   address: AddressDTO[]
   order: OrderDTO
 
@@ -49,9 +50,14 @@ export class PickAddressPage {
         }
   }
 
-  nextPage(address: AddressDTO) {
+  selectAddress(address: AddressDTO) {
+    debugger
+    this.addres = address
+  }
+
+  nextPage() {
     this.order.account.addresses = []
-    this.order.account.addresses.push(address)
+    this.order.account.addresses.push(this.addres)
     this.navCtrl.push('PaymentPage', {order: this.order})
   }
 

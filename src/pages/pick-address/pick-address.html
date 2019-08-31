@@ -13,15 +13,22 @@
 
 <ion-content padding class="corpo-page">
 
-  <ion-list>
-    <ion-list-header>
-      Selecione um endereço
-    </ion-list-header>
-    <button ion-item *ngFor="let a of address" (click)="nextPage(a)">
-      <h2>{{ a.addressName }}, {{ a.addressNumber }}</h2>
-      <p>{{ a.complement}} {{ a.neighborhood }} {{ a.postalCode }} </p>
-      <p>{{ a.city?.name }} {{ a.state?.uf }}</p>
-    </button>
-  </ion-list>
+  <ion-list radio-group *ngFor="let a of address">
+      <ion-list-header>
+        Selecione um endereço
+      </ion-list-header>
+      <ion-item>
+        <ion-label>{{ a.addressName }}, {{ a.addressNumber }}
+          <p>{{ a.complement}} {{ a.neighborhood }} {{ a.postalCode }} </p>
+          <p>{{ a.city?.name }} {{ a.state?.uf }}</p>
+        </ion-label>
+        <ion-radio checked="false" (click)="selectAddress(a)"></ion-radio>
+       </ion-item>
+    </ion-list>
+    
+    <ion-item>
+      <ion-label>Valor frete R$</ion-label>
+    </ion-item>
+    <button ion-button block (click)="nextPage()" [disabled]="!addres">Próximo</button>
 
 </ion-content>

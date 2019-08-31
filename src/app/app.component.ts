@@ -45,7 +45,7 @@ export class MyApp {
     switch(page.title) {
       case 'Sair':
       this.authService.logout()
-      this.nav.setRoot('HomePage')
+      this.nav.setRoot('LoginPage')
       break;
       
       default: 

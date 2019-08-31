@@ -13,10 +13,6 @@
 
 <ion-content padding class="corpo-page">
 
-  <ion-fab top right edge>
-      <button  color="lightprimary" navPush="CartPage" ion-fab mini><ion-icon name="cart"></ion-icon></button>
-  </ion-fab>
-
   <ion-card class="item">
     <img [src]="item?.imageUrl || 'assets/imgs/prod.jpg'">
     <ion-card-content>
@@ -24,7 +20,7 @@
         {{ item?.name }}
       </ion-card-title>
       <p>
-        {{ item?.price | currency }}
+        {{ item?.price | currency: 'BRL': true }}
       </p>
     </ion-card-content>
   </ion-card>

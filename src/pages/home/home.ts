@@ -1,3 +1,4 @@
+import { CartService } from './../../services/domain/cart.service';
 import { AuthService } from './../../services/auth.service';
 import { CredenciaisDTO } from './../../models/credenciais.dto';
 import { Component } from '@angular/core';
@@ -18,13 +19,19 @@ export class HomePage {
   constructor(
     public navCtrl: NavController, 
     public menu: MenuController,
-    public authService: AuthService) {
+    public authService: AuthService, 
+    public cartService: CartService) {
   }
 
   login() {
     this.authService.authenticate(this.credenciais).subscribe(res => {
       this.authService.successfullLogin(JSON.parse(res.body))
-      this.navCtrl.setRoot('CategoriasPage')
+      let cart = this.cartService.getCart()
+      if(cart && cart.itens.length > 0) {
+        this.navCtrl.setRoot('CartPage')
+      } else {
+        this.navCtrl.setRoot('CategoriasPage')
+      }
     }, error => {})
   }
 

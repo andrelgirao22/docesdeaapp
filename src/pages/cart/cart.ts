@@ -31,7 +31,6 @@ export class CartPage {
   ionViewCanEnter() {
 
     let canEnter: boolean = this.authService.isLoggedIn()
-
     if(!canEnter) {
       let alert = this.alertCtrl.create({
         title: 'Autenticação é necessário',
@@ -49,7 +48,7 @@ export class CartPage {
   }
 
   goToAuth() {
-    this.navCtrl.push('HomePage')
+    this.navCtrl.setRoot('HomePage')
   }
 
   removeItem(item: ItemDTO) {

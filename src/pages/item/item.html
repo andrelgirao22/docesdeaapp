@@ -11,7 +11,11 @@
 
 
 <ion-content padding class="corpo-page">
-
+  
+  <ion-fab bottom right edge>
+    <button color="lightprimary" navPush="CartPage" ion-fab mini><ion-icon name="cart"></ion-icon></button>
+  </ion-fab>
+  
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="arrow-dropdown"
@@ -22,9 +26,6 @@
   </ion-refresher>
     
 
-  <ion-fab top right edge>
-      <button color="lightprimary" navPush="CartPage" ion-fab mini><ion-icon name="cart"></ion-icon></button>
-  </ion-fab>
 
   <ion-list>
     <button ion-item class="item" *ngFor="let item of items" (click)="showDetail(item.id)">

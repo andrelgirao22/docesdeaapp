@@ -39,7 +39,6 @@ export class AuthService {
         if(obj.access_token) {
             obj.email = this.jwtHelper.decodeToken(obj.access_token).sub
             this.storageService.setLocalUser(obj)
-            this.cartService.createOrClearCart()
             return true
         }
 

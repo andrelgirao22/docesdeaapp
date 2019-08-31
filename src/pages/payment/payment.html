@@ -21,10 +21,14 @@
         <ion-label>Pagamento com dinheiro</ion-label>
         <ion-radio checked="true" value="DINHEIRO"></ion-radio>
       </ion-item>
+      <ion-item>
+        <ion-label>Pagamento com cartão</ion-label>
+        <ion-radio checked="false" value="CARTAO"></ion-radio>
+      </ion-item>
     </ion-list>
 
     <ion-item *ngIf="formGroup.value['paymentType'] == 'CARTAO'">
-      <ion-label stacked>Parcelas no boleto</ion-label>
+      <ion-label stacked>Parcelas no cartão</ion-label>
       <ion-select formControlName="quota">
         <ion-option *ngFor="let q of parcelas; first as f" [value]="q" [selected]="f">{{q}}</ion-option>
       </ion-select>

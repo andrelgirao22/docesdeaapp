@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
+import { PayPal } from '@ionic-native/paypal/ngx';
 import { MyApp } from './app.component';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -42,7 +43,8 @@ import { ImageUtilService } from '../services/image-util.service';
     AccountService,
     ItemService,
     CartService,
-    ImageUtilService
+    ImageUtilService,
+    PayPal
   ]
 })
 export class AppModule {}

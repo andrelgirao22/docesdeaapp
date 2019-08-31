@@ -25,14 +25,14 @@
             <img [src]="item.item.imageUrl || 'assets/imgs/prod.jpg'">
           </ion-thumbnail>
           <h2>{{ item.item.name }}</h2>
-          <p>{{ item.item.price | currency }}</p>
+          <p>{{ item.item.price | currency: 'BRL': true }}</p>
           <p>{{ item.quantity }}</p>
-          <p item-end>{{ item.item.price * item.quantity | currency }}</p>
+          <p item-end>{{ item.item.price * item.quantity | currency: 'BRL': true }}</p>
         </ion-item>
   
         <ion-item>
           <h2>Total</h2>
-          <h2 item-end>{{ total() | currency }}</h2>
+          <h2 item-end>{{ total() | currency: 'BRL': true }}</h2>
         </ion-item>
   
       </ion-list>
@@ -55,7 +55,7 @@
       <ion-item>
         <h2>{{ address?.addressName }}, {{ address?.addressNumber }}</h2>
         <p>{{ address?.complement}} {{ address?.neighborhood }} {{ address?.postalCode }} </p>
-        <p>{{ address?.city.name }} {{ address?.state.uf }}</p>
+        <p>{{ address?.city?.name }} {{ address?.state?.uf }}</p>
       </ion-item>
     </ion-card>
   
