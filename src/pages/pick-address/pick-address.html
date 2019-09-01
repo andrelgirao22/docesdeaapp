@@ -27,7 +27,7 @@
     </ion-list>
     
     <ion-item>
-      <ion-label>Valor frete R$</ion-label>
+      <ion-label>Valor frete {{ taxDelivery.value | currency : 'BRL': true }}</ion-label>
     </ion-item>
     <button ion-button block (click)="nextPage()" [disabled]="!addres">Próximo</button>
 

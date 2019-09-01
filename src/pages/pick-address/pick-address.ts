@@ -1,3 +1,5 @@
+import { TaxDelivery } from './../../models/tax-delivery.dto';
+import { TaxDeliveryService } from './../../services/tax-delivery.service';
 import { CartService } from './../../services/domain/cart.service';
 import { LocalStorageService } from './../../services/local-storage.service';
 import { AccountService } from './../../services/domain/account.service';
@@ -17,13 +19,17 @@ export class PickAddressPage {
   addres: AddressDTO
   address: AddressDTO[]
   order: OrderDTO
+  taxDelivery: TaxDelivery = {
+    value: 0.0
+  }
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public storage: LocalStorageService,
     public accountService: AccountService,
-    public cartService: CartService) {
+    public cartService: CartService,
+    public taxDeliveryService: TaxDeliveryService) {
   }
 
   ionViewDidLoad() {
@@ -37,7 +43,6 @@ export class PickAddressPage {
   }
 
   populeOrder(res: AccountDTO) {
-    debugger
     let account  = res
         this.address = account.addresses
         
@@ -51,13 +56,42 @@ export class PickAddressPage {
   }
 
   selectAddress(address: AddressDTO) {
-    debugger
     this.addres = address
+    this.calculateTax()
+  }
+
+  calculateTax() {
+    let cepini = "60450235"
+    let cepfim = this.addres.postalCode
+    this.taxDeliveryService.getDistancia(cepini, cepfim)
+    .getDistanceMatrix({'origins': [cepini], 'destinations': [cepfim], travelMode: google.maps.TravelMode.DRIVING,  }, results => {
+      debugger
+      let distance = 10
+        if(results.rows && results.rows.length > 0) {
+          distance = results.rows[0].elements[0].distance.value
+          if(distance) {
+            distance = distance/1000
+          }
+        }
+        this.taxDeliveryService.getValueTax(distance).subscribe(res=> {
+          if(res && res[0]) {
+            this.taxDelivery = res[0]
+          }
+        })
+    })
   }
 
   nextPage() {
     this.order.account.addresses = []
     this.order.account.addresses.push(this.addres)
+    this.order.orderItens.push({
+      item: {
+        id: "9999",
+        name: "FRETE",
+        price: this.taxDelivery.value   
+      }, quantity: 1
+    })
+    debugger
     this.navCtrl.push('PaymentPage', {order: this.order})
   }
 

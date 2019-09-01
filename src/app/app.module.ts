@@ -18,6 +18,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ErrorInterceptorProvider } from './interceptors/error-interceptor';
 import { ImageUtilService } from '../services/image-util.service';
 
+import { TaxDeliveryService } from '../services/tax-delivery.service';
+
 @NgModule({
   declarations: [
     MyApp
@@ -44,6 +46,7 @@ import { ImageUtilService } from '../services/image-util.service';
     ItemService,
     CartService,
     ImageUtilService,
+    TaxDeliveryService,
     PayPal
   ]
 })
