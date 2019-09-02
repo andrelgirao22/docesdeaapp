@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -11,27 +11,30 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="corpo-page">
 
   <div *ngIf="!orderId">
     <ion-card>
       <ion-card-header>
-        Itens do pedido
+        <strong>
+          Itens do pedido
+          <hr>
+        </strong>
       </ion-card-header>
   
       <ion-list>
         <ion-item *ngFor="let item of cartItens">
           <ion-thumbnail item-start>
-            <img [src]="item.item.imageUrl || 'assets/imgs/prod.jpg'">
+            <img *ngIf="item.item.name !== 'FRETE'" [src]="item.item.imageUrl || 'assets/imgs/prod.jpg'">
           </ion-thumbnail>
-          <h2>{{ item.item.name }}</h2>
+          <h4>{{ item.item.name }}</h4>
           <p>{{ item.item.price | currency: 'BRL': true }}</p>
-          <p>{{ item.quantity }}</p>
+          <p>Qtd {{ item.quantity }}</p>
           <p item-end>{{ item.item.price * item.quantity | currency: 'BRL': true }}</p>
         </ion-item>
   
         <ion-item>
-          <h2>Total</h2>
+          <h2><strong>Total</strong></h2>
           <h2 item-end>{{ total() | currency: 'BRL': true }}</h2>
         </ion-item>
   
@@ -40,7 +43,9 @@
   
     <ion-card>
       <ion-card-header>
-        Cliente
+        <strong>
+          Seus dados<hr>
+        </strong>
       </ion-card-header>
       <ion-item>
         <h2>{{ account?.name }}</h2>
@@ -50,10 +55,12 @@
   
     <ion-card>
       <ion-card-header>
-        Endereço de entrega
+        <strong>
+          Endereço de entrega<hr>
+        </strong>
       </ion-card-header>
       <ion-item>
-        <h2>{{ address?.addressName }}, {{ address?.addressNumber }}</h2>
+        <h3>{{ address?.addressName }}, {{ address?.addressNumber }}</h3>
         <p>{{ address?.complement}} {{ address?.neighborhood }} {{ address?.postalCode }} </p>
         <p>{{ address?.city?.name }} {{ address?.state?.uf }}</p>
       </ion-item>
@@ -61,16 +68,17 @@
   
     <ion-card>
       <ion-card-header>
-        Pagamento
+        <strong>
+          Pagamento<hr>
+        </strong>
       </ion-card-header>
-  
       <ion-item *ngIf="order.payments[0]['paymentType'] == 'CARTAO'">
         <h3>Pagamento com cartão</h3>
         <p>Parcelas: {{ order.payments[0].quota}}</p>
       </ion-item>
   
       <ion-item *ngIf="order.payments[0]['paymentType'] == 'DINHEIRO'">
-          <h3>Pagamento com boleto</h3>
+          <h3>Pagamento com dinheiro</h3>
         </ion-item>
     </ion-card>
   

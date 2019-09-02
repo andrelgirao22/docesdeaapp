@@ -28,7 +28,7 @@ export class HomePage {
       this.authService.successfullLogin(JSON.parse(res.body))
       let cart = this.cartService.getCart()
       if(cart && cart.itens.length > 0) {
-        this.navCtrl.setRoot('CartPage')
+        this.navCtrl.setRoot('PickAddressPage')
       } else {
         this.navCtrl.setRoot('CategoriasPage')
       }

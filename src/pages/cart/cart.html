@@ -15,13 +15,13 @@
   <ion-list class="item">
     <ion-item *ngFor="let item of itens" class="item">
       <ion-thumbnail item-start>
-        <img [src]="item.item.imageUrl || 'assets/imgs/prod.jpg'">
+        <img *ngIf="item.item.name !== 'FRETE'" [src]="item.item.imageUrl || 'assets/imgs/prod.jpg'">
       </ion-thumbnail>
       <h2>{{ item.item.name }}</h2>
       <p>{{ item.item.price |  currency:"BRL":true:"1.2" }}</p>
-      <ion-icon class="nolinebreak" name="remove-circle" color="primary" (click)="decreaseItem(item.item)"></ion-icon>
-      <p class="nolinebreak">{{ item.quantity }}</p>
-      <ion-icon name="add-circle" color="primary" (click)="increaseItem(item.item)"></ion-icon>
+      <ion-icon *ngIf="item.item.name !== 'FRETE'" class="nolinebreak" name="remove-circle" color="primary" (click)="decreaseItem(item.item)"></ion-icon>
+      <p *ngIf="item.item.name !== 'FRETE'" class="nolinebreak">{{ item.quantity }}</p>
+      <ion-icon *ngIf="item.item.name !== 'FRETE'" name="add-circle" color="primary" (click)="increaseItem(item.item)"></ion-icon>
       <ion-icon name="trash" color="primary" item-end (click)="removeItem(item.item)"></ion-icon>
     </ion-item>
     <ion-item *ngIf="total() > 0">

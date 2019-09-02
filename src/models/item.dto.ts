@@ -6,4 +6,5 @@ export interface ItemDTO {
     description?: string
     imageUrl?: string
     price: number
+    prices?: number []
 }
