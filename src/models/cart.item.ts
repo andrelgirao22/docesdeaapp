@@ -4,5 +4,6 @@ export interface CartItem {
 
     item: ItemDTO
     quantity: number
+    value?: number
 
 }

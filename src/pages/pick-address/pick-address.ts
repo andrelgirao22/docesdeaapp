@@ -114,12 +114,12 @@ export class PickAddressPage {
     let item = {
       id: "99999",
       name: "FRETE",
-      price: this.taxDelivery.value   
+      price: this.taxDelivery.value
     }
 
     this.order.account.addresses = []
     this.order.account.addresses.push(this.addres)
-    this.order.orderItens.push({item: item, quantity: 1})
+    this.order.orderItens.push({item: item, quantity: 1, value: this.taxDelivery.value})
     this.cartService.addItem(item)
     this.navCtrl.push('PaymentPage', {order: this.order})
   }

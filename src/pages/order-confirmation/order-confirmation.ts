@@ -29,6 +29,7 @@ export class OrderConfirmationPage {
     public orderService: OrderService) {
 
       this.order = this.navParams.get('order')
+
   }
 
   ionViewDidLoad() {
@@ -57,6 +58,8 @@ export class OrderConfirmationPage {
   }
 
   checkout() {
+    debugger
+    this.order.orderValue = this.cartService.total()
     console.log(this.order)
     this.orderService.insert(this.order).subscribe( res => {
       this.orderId = this.extractId(res.headers.get('location'))
