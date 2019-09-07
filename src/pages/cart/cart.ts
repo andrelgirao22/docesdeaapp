@@ -18,6 +18,9 @@ export class CartPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public cartService: CartService) {
+
+      this.removeItem({id: '99999', name:'FRETE', price: 0.0 })
+
   }
 
   ionViewDidLoad() {

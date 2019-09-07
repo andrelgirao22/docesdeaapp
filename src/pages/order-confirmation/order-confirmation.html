@@ -14,11 +14,16 @@
 <ion-content padding class="corpo-page">
 
   <div *ngIf="!orderId">
+
+    <div style="color: white; margin: 15px;">
+      <h4>{{ account?.name }}</h4>
+      <p>{{ account?.email }}</p>
+    </div>
+
     <ion-card>
       <ion-card-header>
         <strong>
           Itens do pedido
-          <hr>
         </strong>
       </ion-card-header>
   
@@ -44,19 +49,7 @@
     <ion-card>
       <ion-card-header>
         <strong>
-          Seus dados<hr>
-        </strong>
-      </ion-card-header>
-      <ion-item>
-        <h2>{{ account?.name }}</h2>
-        <p>{{ account?.email }}</p>
-      </ion-item>
-    </ion-card>
-  
-    <ion-card>
-      <ion-card-header>
-        <strong>
-          Endereço de entrega<hr>
+          Endereço de entrega
         </strong>
       </ion-card-header>
       <ion-item>
@@ -69,7 +62,7 @@
     <ion-card>
       <ion-card-header>
         <strong>
-          Pagamento<hr>
+          Pagamento
         </strong>
       </ion-card-header>
       <ion-item *ngIf="order.payments[0]['paymentType'] == 'CARTAO'">
