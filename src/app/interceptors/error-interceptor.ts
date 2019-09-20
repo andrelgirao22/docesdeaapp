@@ -12,14 +12,15 @@ export class ErrorInterceptor implements  HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler ): Observable<HttpEvent<any>> {
         
         return next.handle(req)
+            
             .catch((error, caught) => {
-
+                
                 let errorObj = error;
                 if(errorObj.error) {
+                    debugger
                     errorObj = JSON.parse(errorObj.error)
                     console.log(errorObj)
                 }
-
                 console.log('erro detectado pelo interceptor: ')
                 console.log('status ' + errorObj.status)
                 switch(errorObj.status) {

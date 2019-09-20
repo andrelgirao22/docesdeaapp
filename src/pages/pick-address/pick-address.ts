@@ -37,8 +37,10 @@ export class PickAddressPage {
 
   ionViewDidLoad() {
     let localUser = this.storage.getLocalUser()
+    debugger
     if(localUser && localUser.email) {
       this.accountService.findlByEmail(localUser.email).subscribe(res => {
+        debugger
         this.populeOrder(res)
       }, error => {})
     }
