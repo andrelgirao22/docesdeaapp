@@ -9,8 +9,15 @@ export class CategoriaService {
 
     constructor(public http: HttpClient) {}
 
+    url = `${API_CONFIG.baseUrl}/category`
+
     findAll() : Observable<CategoriaDTO[]> {
-        return this.http.get<CategoriaDTO[]>(`${API_CONFIG.baseUrl}/category`)
+        return this.http.get<CategoriaDTO[]>(this.url)
+    }
+
+    findImage(id: string, index: string): Observable<any> {
+        let uri = `${this.url}/picture/${id}/index/${index}`
+        return this.http.get(uri, {observe: 'response', responseType: 'blob'})
     }
 
 }

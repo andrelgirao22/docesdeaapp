@@ -3,6 +3,7 @@ import { CategoriaService } from './../../services/domain/categoria.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ItemService } from '../../services/domain/item.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -17,12 +18,20 @@ export class CategoriasPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public categoriaService: CategoriaService,
+    private sanitizer: DomSanitizer,
     public itemService: ItemService) {
   }
 
   ionViewDidLoad() {
     this.categoriaService.findAll().subscribe(res => {
       this.categorias = res
+      res.forEach(cat => {
+        this.categoriaService.findImage(cat.id, "0").subscribe(i => {
+          const blob = new Blob([i.body], { type: 'application/octet-stream' })
+          let image = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob))
+          cat.imageUrl = image
+        }, error => {})
+      })
     })
   }
 
