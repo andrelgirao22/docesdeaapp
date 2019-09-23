@@ -13,15 +13,25 @@
 
 <ion-content padding class="corpo-page">
 
-  <ion-card class="item">
-    <img [src]="item?.imageUrl || 'assets/imgs/prod.jpg'">
+  
+  <ion-card>
+    
+    
     <ion-card-content>
       <ion-card-title>
         {{ item?.name }}
       </ion-card-title>
-      <p>
+      
+      <ion-slides pager="true">
+        <ion-slide *ngFor="let img of filterItemsImage()">
+          <img [src]="img">
+        </ion-slide>
+        
+      </ion-slides>
+
+      <h3>
         {{ item?.price | currency: 'BRL': true }}
-      </p>
+      </h3>
     </ion-card-content>
   </ion-card>
 

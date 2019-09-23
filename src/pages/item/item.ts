@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ItemDTO } from '../../models/item.dto';
 import { ItemService } from '../../services/domain/item.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -17,7 +18,8 @@ export class ItemPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public itemService: ItemService,
-    public loadingController: LoadingController) {
+    public loadingController: LoadingController,
+    private sanitizer: DomSanitizer) {
   }
 
   ionViewDidLoad() {
@@ -29,7 +31,16 @@ export class ItemPage {
     let loader=  this.presentLoading()
     this.itemService.findByCategoria(categoria_id, this.page, 10).subscribe(res => {
       this.items = this.items.concat(res.content)
-      loader.dismiss()
+      this.items.forEach(item => {
+        this.itemService.findImage(item.id, "0").subscribe(image => {
+          const blob = new Blob([image.body], { type: 'application/octet-stream' })
+          let _image = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob))
+          item.imageUrl = _image
+          loader.dismiss()
+        })
+      } , error => {
+        loader.dismiss()
+      })
     }, error =>{
       loader.dismiss()
     })
