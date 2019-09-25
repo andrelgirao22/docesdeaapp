@@ -6,6 +6,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { OrderDTO } from '../../models/order.dto';
 import { AccountDTO, AddressDTO } from '../../models/acount.dto';
 import { OrderService } from '../../services/domain/order.service';
+import { ItemService } from '../../services/domain/item.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @IonicPage()
@@ -26,7 +28,9 @@ export class OrderConfirmationPage {
     public navParams: NavParams,
     public cartService: CartService,
     public accountService: AccountService,
-    public orderService: OrderService) {
+    public orderService: OrderService,
+    public itemService: ItemService,
+    public sanitizer: DomSanitizer) {
 
       this.order = this.navParams.get('order')
 
@@ -35,6 +39,16 @@ export class OrderConfirmationPage {
   ionViewDidLoad() {
     this.cartItens = this.cartService.getCart().itens
 
+    this.cartItens.forEach((item, index) => {
+      let id = item.item.id
+      this.itemService.findImage(id, `${index}`).subscribe(res => {
+        const blob = new Blob([res.body], { type: 'application/octet-stream' })
+        let image = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob))
+        item.item.imageUrl = image
+      })
+
+    })
+    
     this.accountService.findById(this.order.account.id).subscribe(res => {
       this.account = res
       console.log('order', this.order)
@@ -58,7 +72,7 @@ export class OrderConfirmationPage {
   }
 
   checkout() {
-    debugger
+    
     this.order.orderValue = this.cartService.total()
     console.log(this.order)
     this.orderService.insert(this.order).subscribe( res => {

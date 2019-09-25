@@ -14,11 +14,14 @@ export class ErrorInterceptor implements  HttpInterceptor {
         return next.handle(req)
             
             .catch((error, caught) => {
-                
+                debugger
                 let errorObj = error;
                 if(errorObj.error) {
-                    debugger
-                    errorObj = JSON.parse(errorObj.error)
+                    try {
+                        errorObj = JSON.parse(errorObj.error)
+                    } catch(e) {
+                        errorObj = JSON.parse(JSON.stringify(errorObj.error))
+                    }
                     console.log(errorObj)
                 }
                 console.log('erro detectado pelo interceptor: ')

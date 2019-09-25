@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { CartItem } from '../../models/cart.item';
 import { CartService } from '../../services/domain/cart.service';
 import { ItemDTO } from '../../models/item.dto';
+import { ItemService } from '../../services/domain/item.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @IonicPage()
@@ -17,7 +19,9 @@ export class CartPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public cartService: CartService) {
+    public cartService: CartService,
+    public itemService: ItemService,
+    private sanitizer: DomSanitizer) {
 
       this.removeItem({id: '99999', name:'FRETE', price: 0.0 })
 
@@ -26,6 +30,20 @@ export class CartPage {
   ionViewDidLoad() {
     let cart = this.cartService.getCart()
     this.itens = cart.itens
+
+    this.itens.forEach((item, index) => {
+      this.itemService.findImage(`${item.item.id}`, `${index}`).subscribe(res => {
+  
+        const blob = new Blob([res.body], { type: 'application/octet-stream' })
+        let image = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob))
+  
+       item.item.imageUrl = image
+        
+      }, error => {
+        console.log(error)
+      })
+    })
+
   }
 
   removeItem(item: ItemDTO) {

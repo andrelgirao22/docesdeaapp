@@ -37,7 +37,6 @@ export class PickAddressPage {
 
   ionViewDidLoad() {
     let localUser = this.storage.getLocalUser()
-    debugger
     if(localUser && localUser.email) {
       this.accountService.findlByEmail(localUser.email).subscribe(res => {
         debugger
@@ -96,7 +95,7 @@ export class PickAddressPage {
       if(res && res[0]) {
         this.taxDelivery = res[0]
       }
-    })
+    }, error => {})
     /*this.taxDeliveryService.getDistancia(cepini, cepfim)
       .getDistanceMatrix({'origins': [cepini], 'destinations': [cepfim], travelMode: google.maps.TravelMode.DRIVING,  }, results => {
         if(results.rows && results.rows.length > 0) {
