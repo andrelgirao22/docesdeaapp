@@ -14,7 +14,6 @@ export class ErrorInterceptor implements  HttpInterceptor {
         return next.handle(req)
             
             .catch((error, caught) => {
-                debugger
                 let errorObj = error;
                 if(errorObj.error) {
                     try {
@@ -58,15 +57,19 @@ export class ErrorInterceptor implements  HttpInterceptor {
     }
 
     handleDefault(errorObj) {   
-        let alert = this.alertCtrl.create({
-            title: 'Erro ' + errorObj.status + ':' + errorObj.error,
-            message: errorObj.message,
-            enableBackdropDismiss: false,
-            buttons: [
-                {text: 'Ok'}
-            ]
-        })
-        alert.present()
+        if(errorObj && errorObj.error !== undefined) {
+            let alert = this.alertCtrl.create({
+                title: 'Erro ' + errorObj.status + ':' + errorObj.error,
+                message: errorObj.message,
+                enableBackdropDismiss: false,
+                buttons: [
+                    {text: 'Ok'}
+                ]
+            })
+            alert.present()
+        } else {
+            console.log("Erro desconhecido", errorObj)
+        }
     }
 
 }

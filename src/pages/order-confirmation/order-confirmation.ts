@@ -31,9 +31,7 @@ export class OrderConfirmationPage {
     public orderService: OrderService,
     public itemService: ItemService,
     public sanitizer: DomSanitizer) {
-
       this.order = this.navParams.get('order')
-
   }
 
   ionViewDidLoad() {
@@ -45,7 +43,7 @@ export class OrderConfirmationPage {
         const blob = new Blob([res.body], { type: 'application/octet-stream' })
         let image = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob))
         item.item.imageUrl = image
-      })
+      }, error => {})
 
     })
     
