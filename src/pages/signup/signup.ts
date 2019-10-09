@@ -6,6 +6,7 @@ import { StateService } from './../../services/domain/state.service';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { AccountDTO } from '../../models/acount.dto';
 
 
 @IonicPage()
@@ -78,8 +79,9 @@ export class SignupPage {
   }
 
   signupUser() {
-    
-    this.accountService.insert(this.formGroup.value).subscribe(res=> {
+    let account: AccountDTO = this.formGroup.value;
+    account.addresses = [this.formGroup.value.address]
+    this.accountService.insert(account).subscribe(res=> {
       this.showInsertOk()
     }, error=>{})
   }
@@ -93,7 +95,7 @@ export class SignupPage {
         {
           text: 'Ok',
           handler: () =>{
-            this.navCtrl.pop()
+            this.navCtrl.push('HomePage', { newEmail: this.formGroup.value.email })
           }
         }
       ]

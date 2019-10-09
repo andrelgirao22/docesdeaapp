@@ -3,5 +3,9 @@ page-order-confirmation {
     ion-card{
         opacity: 0.9;
     }
-
+    
+    .circle-pic {
+        -webkit-border-radius: 50%;
+        border-radius: 50%; 
+    }
 }

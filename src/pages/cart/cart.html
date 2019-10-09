@@ -15,7 +15,7 @@
   <ion-list class="item">
     <ion-item *ngFor="let item of itens" class="item">
       <ion-thumbnail item-start>
-        <img *ngIf="item.item.name !== 'FRETE'" [src]="item.item.imageUrl || 'assets/imgs/prod.jpg'">
+        <img *ngIf="item.item.name !== 'FRETE'" [src]="item.item.imageUrl || 'assets/imgs/prod.jpg'" class="circle-pic">
       </ion-thumbnail>
       <h2>{{ item.item.name }}</h2>
       <p>{{ item.item.price |  currency:"BRL":true:"1.2" }}</p>

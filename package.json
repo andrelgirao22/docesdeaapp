@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.1",
+    "com.paypal.cordova.mobilesdk": "^3.5.0",
     "typescript": "~2.6.2"
   },
   "description": "An Ionic project",
@@ -62,7 +63,8 @@
       "cordova-plugin-camera": {},
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
-      }
+      },
+      "com.paypal.cordova.mobilesdk": {}
     },
     "platforms": [
       "browser",

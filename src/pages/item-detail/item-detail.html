@@ -19,19 +19,14 @@
     
     <ion-card-content>
       <ion-card-title>
-        {{ item?.name }}
+        {{ item?.name }} {{ item?.price | currency: 'BRL': true }}
       </ion-card-title>
       
       <ion-slides pager="true">
         <ion-slide *ngFor="let img of filterItemsImage()">
           <img [src]="img">
         </ion-slide>
-        
       </ion-slides>
-
-      <h3>
-        {{ item?.price | currency: 'BRL': true }}
-      </h3>
     </ion-card-content>
   </ion-card>
 

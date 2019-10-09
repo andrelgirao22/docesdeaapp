@@ -31,15 +31,18 @@ export class ItemPage {
     let loader=  this.presentLoading()
     this.itemService.findByCategoria(categoria_id, this.page, 10).subscribe(res => {
       this.items = this.items.concat(res.content)
+      
+      if(this.items.length == 0) loader.dismiss()
+
       this.items.forEach(item => {
         this.itemService.findImage(item.id, "0").subscribe(image => {
           const blob = new Blob([image.body], { type: 'application/octet-stream' })
           let _image = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob))
           item.imageUrl = _image
           loader.dismiss()
+        }, error => {
+          loader.dismiss()
         })
-      } , error => {
-        loader.dismiss()
       })
     }, error =>{
       loader.dismiss()

@@ -45,7 +45,7 @@ export class AccountService  {
     }
 
     getImageFromBucket(id: string) {
-        return this.http.get(`${API_CONFIG.baseUrlAmazon}/acc${id}.jpg`, {responseType: 'blob'})
+        return this.http.get(`${API_CONFIG.baseUrl}/acc${id}.jpg`, {responseType: 'blob'})
     }
 
 }

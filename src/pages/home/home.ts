@@ -2,7 +2,7 @@ import { CartService } from './../../services/domain/cart.service';
 import { AuthService } from './../../services/auth.service';
 import { CredenciaisDTO } from './../../models/credenciais.dto';
 import { Component } from '@angular/core';
-import { NavController, IonicPage, MenuController } from 'ionic-angular';
+import { NavController, IonicPage, MenuController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -18,9 +18,16 @@ export class HomePage {
 
   constructor(
     public navCtrl: NavController, 
+    public navParams: NavParams,
     public menu: MenuController,
     public authService: AuthService, 
     public cartService: CartService) {
+
+      let email = this.navParams.get('newEmail')
+      if(email) {
+        this.credenciais.username = email
+      }
+
   }
 
   login() {
