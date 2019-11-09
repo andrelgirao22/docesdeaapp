@@ -30,15 +30,15 @@ export class SignupPage {
     public accountService: AccountService) {
 
       this.formGroup = this.formBuilder.group({
-        name: ['Joao', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
-        email: ['joao@gmail.com', [Validators.required, Validators.email]],
+        name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
+        email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required]],
         passwordConfirmation: ['', Validators.required],
         address: new FormGroup({
-          addressName: new FormControl('Rua x', [Validators.required]),
-          addressNumber:new FormControl('Rua x', [Validators.required]),
-          neighborhood: new FormControl('Bairro x', [Validators.required]),
-          postalCode: new FormControl('60730285', [Validators.required]),
+          addressName: new FormControl('', [Validators.required]),
+          addressNumber:new FormControl('', [Validators.required]),
+          neighborhood: new FormControl('', [Validators.required]),
+          postalCode: new FormControl('', [Validators.required]),
           city: new FormControl(null, [Validators.required]),
           state: new FormControl(null, [Validators.required]),
           complement: new FormControl('')

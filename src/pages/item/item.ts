@@ -13,6 +13,7 @@ export class ItemPage {
 
   items: ItemDTO[] = []
   page: number = 0
+  image: any = 'assets/imgs/prod.jpg'
 
   constructor(
     public navCtrl: NavController, 
@@ -39,6 +40,7 @@ export class ItemPage {
           const blob = new Blob([image.body], { type: 'application/octet-stream' })
           let _image = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob))
           item.imageUrl = _image
+          this.image = _image
           loader.dismiss()
         }, error => {
           loader.dismiss()

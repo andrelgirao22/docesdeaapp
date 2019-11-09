@@ -40,7 +40,11 @@ export class PickAddressPage {
     if(localUser && localUser.email) {
       this.accountService.findlByEmail(localUser.email).subscribe(res => {
         this.populeOrder(res)
-      }, error => {})
+      }, error => {
+        if(error.status && error.status === 401) {
+          this.goToAuth()
+        }
+      })
     }
     
   }

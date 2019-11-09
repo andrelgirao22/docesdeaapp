@@ -37,9 +37,9 @@ export class OrderConfirmationPage {
   ionViewDidLoad() {
     this.cartItens = this.cartService.getCart().itens
 
-    this.cartItens.forEach((item, index) => {
+    this.cartItens.forEach(item => {
       let id = item.item.id
-      this.itemService.findImage(id, `${index}`).subscribe(res => {
+      this.itemService.findImage(id, `${0}`).subscribe(res => {
         const blob = new Blob([res.body], { type: 'application/octet-stream' })
         let image = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob))
         item.item.imageUrl = image

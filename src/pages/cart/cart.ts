@@ -31,18 +31,24 @@ export class CartPage {
     let cart = this.cartService.getCart()
     this.itens = cart.itens
 
-    this.itens.forEach((item, index) => {
-      this.itemService.findImage(`${item.item.id}`, `${index}`).subscribe(res => {
-  
+    console.log('itens', this.itens)
+
+    this.itens.forEach(item => {
+      this.itemService.findImage(`${item.item.id}`, `${0}`).subscribe(res => {
+        
         const blob = new Blob([res.body], { type: 'application/octet-stream' })
         let image = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob))
   
-       item.item.imageUrl = image
+        item.item.imageUrl = image
         
       }, error => {
         console.log(error)
       })
     })
+
+    
+
+
 
   }
 
