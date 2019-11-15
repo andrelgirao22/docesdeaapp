@@ -2,6 +2,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { OrderDTO } from '../../models/order.dto';
+import { b } from '@angular/core/src/render3';
 
 @IonicPage()
 @Component({
@@ -37,11 +38,18 @@ export class PaymentPage {
 
   nextPage() {
 
+  const paymentValue = 
+    this.order.orderItens.map(item => {
+      return (item.item.price * item.quantity)
+    }).reduce( (a , b) => a + b, 0);
+
+    debugger
+
     this.order.payments = [{
       id: null,
       paymentType: this.formGroup.get('paymentType').value,
       quota: this.formGroup.get('quota').value,
-      value: this.order.orderValue
+      value: paymentValue
     }]
     this.navCtrl.setRoot('OrderConfirmationPage', {order :this.order})
   }

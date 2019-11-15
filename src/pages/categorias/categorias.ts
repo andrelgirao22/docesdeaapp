@@ -27,7 +27,7 @@ export class CategoriasPage {
       this.categorias = res
       res.forEach(cat => {
         this.categoriaService.findImage(cat.id, "0").subscribe(i => {
-          const blob = new Blob([i.body], { type: 'application/octet-stream' })
+          const blob = new Blob([i.body], { type: 'application/octet-stream'}) 
           let image = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob))
           cat.imageUrl = image
         }, error => {})

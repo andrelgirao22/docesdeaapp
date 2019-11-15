@@ -30,9 +30,9 @@
   <ion-list>
     <button ion-item class="item" *ngFor="let item of items" (click)="showDetail(item.id)">
       <ion-thumbnail item-start>
-        <img [src]="image" class="circle-pic">
+        <img [src]="item?.imageUrl" class="circle-pic">
       </ion-thumbnail>
-      <h2>{{ item.name }}</h2>
+      <h3 text-wrap class="descricao">{{ item.name }}</h3>
       <p>{{ item.price |  currency:"BRL":true:"1.2" }}</p>
     </button>
   </ion-list>

@@ -31,7 +31,7 @@
           <ion-thumbnail item-start>
             <img *ngIf="item.item.name !== 'FRETE'" [src]="item.item.imageUrl || 'assets/imgs/prod.jpg'" class="circle-pic">
           </ion-thumbnail>
-          <h4>{{ item.item.name }}</h4>
+          <h4 text-wrap >{{ item.item.name }}</h4>
           <p>{{ item.item.price | currency: 'BRL': true }}</p>
           <p>Qtd {{ item.quantity }}</p>
           <p item-end>{{ item.item.price * item.quantity | currency: 'BRL': true }}</p>
