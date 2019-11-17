@@ -9,6 +9,8 @@ import { ImageUtilService } from '../image-util.service';
 @Injectable()
 export class AccountService  {
 
+    url = `${API_CONFIG.baseUrl}/account`
+
     constructor(
         public http: HttpClient, 
         public storage: LocalStorageService,
@@ -31,10 +33,17 @@ export class AccountService  {
         )
     }
 
-    uploadPicture(picture, id: string) {
-        let pictureBlob = this.imageService.dataUriToBlob(picture)
+        
+    findImage(id: string, index: string): Observable<any> {
+        let uri = `${this.url}/picture/${id}/index/${index}`
+        return this.http.get(uri, {observe: 'response', responseType: 'blob'})
+    }
+
+    sendImage(id: string, filename: string, image) {
+        let imageBlob = this.imageService.dataUriToBlob(image)
         let formData: FormData = new FormData()
-        formData.append('file', pictureBlob, 'file.png')
+  
+        formData.set('file', imageBlob, filename)
 
         return this.http.post(`${API_CONFIG.baseUrl}/account/picture/${id}`, 
             formData, {

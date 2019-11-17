@@ -3,7 +3,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AccountService } from './../../services/domain/account.service';
 import { LocalStorageService } from './../../services/local-storage.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { AccountDTO } from '../../models/acount.dto';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -19,6 +19,7 @@ export class ProfilePage {
   account: AccountDTO
   picture: string
   profileImage
+  timeStamp
   cameraOn: boolean = false
 
   constructor(
@@ -27,8 +28,10 @@ export class ProfilePage {
     public storage: LocalStorageService,
     public accountService: AccountService,
     public camera: Camera,
-    public sanitizer: DomSanitizer) {
+    public sanitizer: DomSanitizer,
+    public loadingController: LoadingController) {
       this.profileImage = 'assets/imgs/avatar-blank.png'
+      this.timeStamp = (new Date()).getTime();
   }
 
   ionViewDidLoad() {
@@ -54,13 +57,17 @@ export class ProfilePage {
   }
 
   getImageIfExists() {
+    
+    this.accountService.findImage(this.account.id, "0").subscribe(res => {
 
-    if(this.account.imageUrl) {
-      this.profileImage = this.account.imageUrl
-      console.log('profileImage', this.profileImage)
-    } else {
+      const blob = new Blob([res.body], { type: 'application/octet-stream' })
+      let image = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(blob))
+      this.profileImage = image
+
+
+    }, error => {
       this.profileImage = 'assets/imgs/avatar-blank.png'
-    }
+    })
     
   }
 
@@ -112,13 +119,27 @@ export class ProfilePage {
     });
   }
 
+
   sendPicture() {
-    this.accountService.uploadPicture(this.picture, this.account.id).subscribe(res => {
+    let loader=  this.presentLoading()
+    this.accountService.sendImage(this.account.id, `0.png`, this.picture).subscribe(res => {
       this.picture = null
-      this.loadData()
+      this.timeStamp = (new Date()).getTime();
+      this.getImageIfExists()
+      loader.dismiss()
     }, error => {
       this.cameraOn = false
     })
+
+  }
+
+  presentLoading() {
+    let loader = this.loadingController.create({
+      content: 'Enviando foto...',
+    });
+
+    loader.present()
+    return loader
   }
 
   cancelPicture() {
